@@ -4,12 +4,21 @@ use tower_http::{
   compression::CompressionLayer, cors::CorsLayer, propagate_header::PropagateHeaderLayer,
   sensitive_headers::SetSensitiveHeadersLayer, trace,
 };
+use utoipa::OpenApi;
+use utoipa_swagger_ui::SwaggerUi;
 
 use crate::logger;
 use crate::models;
 use crate::routes;
 
 pub async fn create_app() -> Router {
+  #[derive(OpenApi)]
+  #[openapi(
+    paths(routes::status::get_status),
+    components(schemas(routes::status::Status))
+  )]
+  struct ApiDoc;
+
   logger::setup();
 
   models::sync_indexes()
@@ -17,6 +26,7 @@ pub async fn create_app() -> Router {
     .expect("Failed to sync database indexes");
 
   Router::new()
+    .merge(SwaggerUi::new("/docs").url("/docs/openapi.json", ApiDoc::openapi()))
     .merge(routes::status::create_route())
     .merge(routes::user::create_route())
     .merge(Router::new().nest(
