@@ -43,5 +43,5 @@ utoipa-swagger-ui = { version = "3", features = ["axum"] }
 
 [dev-dependencies]
 assert-json-diff = "2.0.2"
-reqwest = { version = "0.11.20", features = ["json"] }
+reqwest = { version = "0.11.21", features = ["json"] }
 pretty_assertions = "1.4.0"
