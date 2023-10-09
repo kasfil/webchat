@@ -39,7 +39,7 @@ mime = "0.3.17"
 bytes = "1.5.0"
 async_once = "0.2.6"
 utoipa = { version = "3", features = ["axum_extras"] }
-utoipa-swagger-ui = { version = "3", features = ["axum"] }
+utoipa-swagger-ui = { version = "4", features = ["axum"] }
 
 [dev-dependencies]
 assert-json-diff = "2.0.2"
